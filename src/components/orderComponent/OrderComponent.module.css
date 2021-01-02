@@ -1,0 +1,36 @@
+.orderComponent {
+  border-radius: 2px;
+  width: 40%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  color: #242424;
+  background: rgb(236, 235, 219);
+  justify-content: center;
+  box-shadow: 0px 2px 5px #96a2bb;
+}
+
+.orderComponent h3 {
+  font-weight: 500;
+}
+.orderComponent p {
+  font-weight: 400;
+}
+
+.price {
+  color: #242424;
+  font-size: 1.2rem;
+}
+
+.ingredients {
+  border-radius: 2px;
+  color: #242424;
+  margin: 3px 3px;
+  border: 1px solid #242424;
+  /* background: rgb(66, 66, 66); */
+  text-transform: capitalize;
+  padding: 3px 7px;
+}
+.amount {
+  color: #242424;
+}

@@ -1,0 +1,44 @@
+.inputElement {
+  box-sizing: border-box;
+  display: block;
+  margin: 3px;
+  border-radius: 2px;
+  padding: 8px 18px;
+  outline: none;
+  border: none;
+  background: rgb(240, 238, 230);
+  width: 100%;
+}
+.inputElement:focus {
+  background: rgb(221, 220, 220);
+}
+
+.inputElement:hover {
+  background: rgb(221, 220, 220);
+}
+
+.invalid:hover {
+  background: salmon;
+  /* border: 1px solid rgb(179, 44, 44); */
+}
+
+.invalid:focus {
+  background: salmon;
+  /* border: 1px solid rgb(179, 44, 44); */
+}
+
+.entry {
+  display: flex;
+  flex-direction: row;
+}
+.correct {
+  color: rgb(13, 197, 13);
+  padding: 5px;
+  font-weight: 600;
+}
+
+.incorrect {
+  padding: 5px;
+  color: rgb(219, 58, 58);
+  font-weight: 600;
+}

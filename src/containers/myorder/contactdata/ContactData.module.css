@@ -1,0 +1,31 @@
+.contactDataContainer {
+  display: flex;
+  flex-direction: column;
+  color: #242424;
+}
+
+.contactDataContainer input {
+  margin: 3px;
+  padding: 6px 16px;
+  outline: none;
+  border: none;
+  background: rgb(240, 238, 230);
+}
+
+.contactDataContainer h3 {
+  color: rgb(100, 99, 99);
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.contactDataContainer h1 {
+  color: #242424;
+  font-size: 3.1rem;
+}
+
+.formData {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}

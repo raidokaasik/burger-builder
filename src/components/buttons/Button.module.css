@@ -1,0 +1,33 @@
+.Button {
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 1px #fff solid;
+  outline: none;
+  font-weight: 500;
+}
+
+.Success {
+  cursor: pointer;
+  background: rgb(22, 192, 30);
+  color: #fff;
+}
+.Success:hover {
+  background: rgb(142, 224, 87);
+  color: #242424;
+}
+
+.Danger {
+  cursor: pointer;
+  background: rgb(247, 67, 36);
+  color: #fff;
+}
+
+.Danger:hover {
+  background: rgb(255, 108, 108);
+  color: #242424;
+}
+
+.Button:disabled {
+  color: #ccc;
+  background: gray;
+}

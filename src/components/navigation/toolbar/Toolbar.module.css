@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.toolbar {
+  height: 60px;
+  width: 100%;
+  background-color: #743a03;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 90;
+  padding: 0 35px;
+  top: 0;
+  left: 0;
+}
+.desktoponly {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.showMenu {
+  display: none;
+}
+
+.toolbar nav {
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .desktoponly {
+    display: none;
+  }
+  .showMenu {
+    display: block;
+  }
+}

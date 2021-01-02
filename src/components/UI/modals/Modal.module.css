@@ -1,0 +1,35 @@
+.Modal {
+  position: fixed;
+  z-index: 500;
+  background-color: white;
+  width: 50%;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 1px black;
+  padding: 20px;
+  left: 25%;
+  top: 30%;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+}
+
+.Modal ul {
+  padding-left: 30px;
+}
+.Modal li {
+  padding-top: 4 px;
+  padding-bottom: 4 px;
+  font-weight: 600;
+}
+
+.Modal p,
+h3 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/* 
+@media (min-width: 600px) {
+    .Modal {
+        width: 500px;
+        left: calc(50% - 250px);
+    }
+} */

@@ -1,0 +1,40 @@
+.summaryContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 100%;
+}
+
+.summaryContainer h1 {
+  color: #242424;
+  font-size: 3.1rem;
+  margin-bottom: 20px;
+}
+.summaryContainer h3 {
+  color: rgb(100, 99, 99);
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.summaryButtons {
+  position: relative;
+  margin-top: 0;
+}
+
+/* .summaryLeft {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* .summaryRight {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */

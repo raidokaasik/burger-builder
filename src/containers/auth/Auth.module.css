@@ -1,0 +1,40 @@
+.Auth {
+  background-color: rgb(255, 254, 250);
+  width: 30%;
+  /* box-shadow: 2px 2px 2px 4px #ccc; */
+  padding: 100px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Auth p {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.Auth button {
+  width: 60%;
+}
+
+.Auth form {
+  margin: 10px 0 10px 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  min-width: 200px;
+  width: 70%;
+}
+.Auth form button {
+  margin: 20px 0 10px 0;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  width: 60%;
+}
+
+.Auth h1 {
+  font-weight: 600;
+  font-size: 3.8rem;
+  transition: 0.3s ease;
+}

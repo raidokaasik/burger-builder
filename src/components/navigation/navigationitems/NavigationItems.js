@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import {NavLink, Route} from "react-router-dom";
 import classes from "./NavigationItems.module.css";
+import {connect} from "react-redux";
 
 const navigationItems = () => {
   return (
@@ -16,9 +17,18 @@ const navigationItems = () => {
             Orders
           </NavLink>
         </li>
+        <li className={classes.navigationItem}>
+          <NavLink activeClassName={classes.active} exact to="/auth">
+            Register
+          </NavLink>
+        </li>
       </ul>
     </Fragment>
   );
 };
 
-export default navigationItems;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(mapStateToProps)(navigationItems);

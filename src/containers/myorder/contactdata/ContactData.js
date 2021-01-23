@@ -4,6 +4,9 @@ import Button from "../../../components/buttons/Button.js";
 import axios from "../../../AxiosOrders.js";
 import Spinner from "../../../components/UI/spinner/Spinner.js";
 import Input from "../../../components/UI/input/Input.js";
+import {connect} from "react-redux";
+import * as actionCreator from "../../../redux/actions/actionIndex.js";
+import WithErrorHandler from "../../../hoc/errorhandling/errorHandler.js";
 
 class ContactData extends Component {
   state = {
@@ -109,7 +112,6 @@ class ContactData extends Component {
       },
     },
     formIsValid: false,
-    loading: false,
   };
 
   isValidHandler(value, validation) {
@@ -125,7 +127,6 @@ class ContactData extends Component {
 
   orderHandler = event => {
     event.preventDefault();
-    this.setState({loading: true});
     const formSubmit = {};
     for (let key in this.state.customer) {
       formSubmit[key] = this.state.customer[key].value;
@@ -136,11 +137,7 @@ class ContactData extends Component {
       price: this.props.price,
       customer: formSubmit,
     };
-    console.log(this.state.customer);
-    axios
-      .post("/orders.json", newOrder)
-      .then(this.setState({loading: false}, this.props.history.push("/")))
-      .catch(this.setState({loading: false}));
+    this.props.orderSubmitAttempt(newOrder);
   };
 
   inputHandler = (event, id) => {
@@ -214,10 +211,29 @@ class ContactData extends Component {
       <div className={classes.contactDataContainer}>
         <h1>Order Data</h1>
         <h3>Where and to Whom should we send it?</h3>
-        {this.state.loading ? <Spinner /> : form}
+        {this.props.loading ? <Spinner /> : form}
       </div>
     );
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+  return {
+    loading: state.ordr.loading,
+    ingredients: state.ingrd.ingredients,
+    price: state.prc.price,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    orderSubmitAttempt: payload =>
+      dispatch(actionCreator.orderSubmitAttempt(payload)),
+    // resetPrice: () => dispatch({type: "RESET_PRICE"}),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WithErrorHandler(ContactData, axios));

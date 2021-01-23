@@ -1,0 +1,23 @@
+export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
+export const INIT_INGREDIENT = "INIT_INGREDIENT";
+export const ADD_VALUE = "ADD_VALUE";
+export const REMOVE_VALUE = "REMOVE_VALUE";
+export const RESET_PRICE = "RESET_PRICE";
+export const REPORT_ERROR = "REPORT_ERROR";
+
+export const ORDER_SUBMIT_START = "ORDER_SUBMIT_START";
+export const ORDER_SUBMIT = "ORDER_SUBMIT";
+export const ORDER_FAILED = "ORDER_FAILED";
+export const RESET_REDIRECT = "RESET_REDIRECT";
+export const FETCH_ORDERS = "FETCH_ORDERS";
+export const FETCH_ORDERS_START = "FETCH_ORDERS_START";
+export const FETCH_ORDERS_FAIL = "FETCH_ORDERS_FAIL";
+export const ORDER_DELETE = "ORDER_DELETE";
+export const ORDER_DELETE_PROCESSED = "ORDER_DELETE_PROCESSED";
+
+export const AUTH_START = "AUTH_START";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAIL = "AUTH_FAIL";
+export const AUTH = "AUTH";
+export const AUTH_LOGOUT = "AUTH_LOGOUT";

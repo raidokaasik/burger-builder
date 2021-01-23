@@ -5,6 +5,7 @@ import BurgerBuilder from "./containers/burgerbuilder/BurgerBuilder";
 import MyOrder from "./containers/myorder/Myorder.js";
 import Backdrop from "./components/UI/backdrop/BackDrop.js";
 import Orders from "./containers/orders/Orders.js";
+import Auth from "./containers/auth/Auth.js";
 
 class App extends Component {
   state = {
@@ -18,6 +19,7 @@ class App extends Component {
           <Backdrop />
           <Layout>
             {/* <BurgerBuilder /> */}
+            <Route exact path="/auth" component={Auth} />
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/" component={BurgerBuilder}></Route>
             <Route path="/myorder" component={MyOrder}></Route>

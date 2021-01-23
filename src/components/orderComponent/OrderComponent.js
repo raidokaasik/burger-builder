@@ -30,7 +30,12 @@ const orderComponent = props => {
       <p>Name: {props.name}</p>
       <p>Phone: {props.phoneNr}</p>
       <p>Email: {props.email}</p>
-      <p>Address: {props.address}</p>
+      <p>City: {props.city}</p>
+      <p>Street: {props.street}</p>
+      <p>Postalcode: {props.postalcode}</p>
+      <button className={classes.cancelButton} onClick={props.onCancel}>
+        CANCEL ORDER
+      </button>
     </div>
   );
 };

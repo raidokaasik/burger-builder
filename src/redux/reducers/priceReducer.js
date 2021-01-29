@@ -1,5 +1,4 @@
 /* eslint-disable default-case */
-import axios from "../../AxiosOrders.js";
 import * as actionType from "../actions/actionTypes.js";
 
 const INGREDIENT_PRICE = {
@@ -17,7 +16,6 @@ const priceReducer = (state = initialState, action) => {
   const oldPrice = state.price;
   switch (action.type) {
     case actionType.ADD_VALUE:
-      console.log(state.price);
       return {
         ...state,
         price: oldPrice + INGREDIENT_PRICE[action.payload],

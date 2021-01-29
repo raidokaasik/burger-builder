@@ -15,7 +15,7 @@ const burger = props => {
     }, []);
 
   if (transformedIngredients.length === 0) {
-    errormessage = <h2 className={classes.Errormessage}>Make it Good!</h2>;
+    errormessage = <h2 className={classes.Errormessage}>WELCOME!</h2>;
   }
 
   return (

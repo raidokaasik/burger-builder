@@ -9,18 +9,22 @@ import axios from "../../AxiosOrders.js";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.fetchOrders(this.props.token);
+    // Getting the orders with a TOKEN
+    this.props.fetchOrders(this.props.token, this.props.userId);
   }
 
-  render() {
-    console.log(this.props.errors);
+  // deleteOrder = id => {
+  //   this.props.deletionProcessed(id);
+  //   this.props.deleteOrder(id, this.props.token);
+  // };
 
+  render() {
     let myOrders = (
       <div className={classes.orders}>
         <h1>My Orders</h1>
         {this.props.orders.map((item, index) => (
           <OrderComponent
-            onCancel={() => this.props.deleteOrder(item.id)}
+            // onCancel={() => this.deleteOrder(item.id)}
             ingredients={item.ingredients}
             key={item.id}
             price={item.price}
@@ -36,7 +40,8 @@ class Orders extends Component {
       </div>
     );
 
-    // PLACEHOLDER ERROR MESSAGE
+    //Placeholder Error message
+
     if (this.props.errors) {
       myOrders = (
         <div className={classes.errormessage}>
@@ -49,21 +54,23 @@ class Orders extends Component {
   }
 }
 
+// Redux state and dispatch
+
 const mapStateToProps = state => {
   return {
     orders: state.ordr.orders,
     loading: state.ordr.loading,
     errors: state.ordr.errors,
     token: state.ath.token,
+    userId: state.ath.userId,
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    refreshDeletedOrders: () => {
-      dispatch(actionCreator.orderDeleteProcessed());
-    },
-    deleteOrder: id => dispatch(actionCreator.orderDelete(id)),
-    fetchOrders: token => dispatch(actionCreator.fetchOrdersAsync(token)),
+    deletionProcessed: id => dispatch(actionCreator.orderDeleteProcessed(id)),
+    deleteOrder: (id, token) => dispatch(actionCreator.orderDelete(id, token)),
+    fetchOrders: (token, user) =>
+      dispatch(actionCreator.fetchOrdersAsync(token, user)),
   };
 };
 

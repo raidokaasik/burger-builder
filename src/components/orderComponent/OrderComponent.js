@@ -21,7 +21,7 @@ const orderComponent = props => {
   return (
     <div className={classes.orderComponent}>
       <h3>INGREDIENTS:</h3>
-      <p>{outputIngredients}</p>
+      <p className={classes.ingredientsContainer}>{outputIngredients}</p>
       <h3>PRICE:</h3>
       <p className={classes.price}>{props.price} EUR </p>
       <h3>DELIVERY METHOD:</h3>

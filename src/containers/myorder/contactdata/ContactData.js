@@ -7,6 +7,7 @@ import Input from "../../../components/UI/input/Input.js";
 import {connect} from "react-redux";
 import * as actionCreator from "../../../redux/actions/actionIndex.js";
 import WithErrorHandler from "../../../hoc/errorhandling/errorHandler.js";
+import {Validation} from "../../../validation/validation.js";
 
 class ContactData extends Component {
   state = {
@@ -114,16 +115,7 @@ class ContactData extends Component {
     formIsValid: false,
   };
 
-  isValidHandler(value, validation) {
-    let isvalid = true;
-    if (validation.required) {
-      isvalid = value.trim() !== "";
-    }
-    if (validation.minLength) {
-      isvalid = validation.minLength === value.length;
-    }
-    return isvalid;
-  }
+  // Sending a filled order with async OrderSubmitAttempt to Firebase database
 
   orderHandler = event => {
     event.preventDefault();
@@ -133,33 +125,34 @@ class ContactData extends Component {
     }
 
     const newOrder = {
+      userId: this.props.userId,
       ingredients: this.props.ingredients,
       price: this.props.price,
       customer: formSubmit,
     };
-    this.props.orderSubmitAttempt(newOrder);
+    this.props.orderSubmitAttempt(newOrder, this.props.token);
   };
+
+  // Updating Customer state values with Order input fields and checking field validation(Works partially)
 
   inputHandler = (event, id) => {
     const updatedForm = {...this.state.customer};
     const updatedElement = {...updatedForm[id]};
     updatedElement.value = event.target.value;
-    // Input Validation
 
-    updatedElement.validation.valid = this.isValidHandler(
+    updatedElement.validation.valid = Validation(
       event.target.value,
       updatedElement.validation
     );
     updatedElement.validation.touched = true;
 
     //Form Validation
+
     let isFormValid = true;
-    for (let item in updatedForm[id]) {
-      if (updatedForm[id].validation.valid && isFormValid) {
-        isFormValid = true;
-      } else {
-        isFormValid = false;
-      }
+    if (updatedForm[id].validation.valid && isFormValid) {
+      isFormValid = true;
+    } else {
+      isFormValid = false;
     }
 
     updatedForm[id] = updatedElement;
@@ -217,19 +210,22 @@ class ContactData extends Component {
   }
 }
 
+// Redux state and dispatch
+
 const mapStateToProps = state => {
   return {
+    token: state.ath.token,
     loading: state.ordr.loading,
     ingredients: state.ingrd.ingredients,
     price: state.prc.price,
+    userId: state.ath.userId,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    orderSubmitAttempt: payload =>
-      dispatch(actionCreator.orderSubmitAttempt(payload)),
-    // resetPrice: () => dispatch({type: "RESET_PRICE"}),
+    orderSubmitAttempt: (payload, token) =>
+      dispatch(actionCreator.orderSubmitAttempt(payload, token)),
   };
 };
 

@@ -6,6 +6,9 @@ const initialState = {
   token: null,
   userId: null,
   error: null,
+  isAuth: false,
+  errorStatus: null,
+  setRedirect: "/",
 };
 
 const authReducer = (state = initialState, action) => {
@@ -18,23 +21,31 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        token: action.data.idToken,
-        userId: action.data.localId,
+        token: action.token,
+        userId: action.userId,
+        isAuth: true,
       };
     case actionType.AUTH_FAIL:
       return {
         ...state,
         loading: false,
         error: action.error,
+        isAuth: false,
       };
     case actionType.AUTH_LOGOUT:
       return {
         ...state,
         token: null,
         userId: null,
+        isAuth: false,
       };
-    case actionType.AUTH:
-      return {};
+    // case actionType.AUTH:
+    //   return {};
+    case actionType.SET_AUTH_REDIRECT:
+      return {
+        ...state,
+        setRedirect: action.path,
+      };
     default:
       return state;
   }

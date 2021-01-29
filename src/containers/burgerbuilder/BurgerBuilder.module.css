@@ -1,0 +1,13 @@
+.burgerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+
+@media (max-width: 780px) {
+  .burgerContainer {
+    width: 80%;
+    padding: 0 20px;
+  }
+}

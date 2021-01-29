@@ -9,10 +9,16 @@ export {
   orderSubmit,
   orderSubmitAttempt,
   orderSubmitStart,
-  resetRedirect,
+  resetPurchasing,
   fetchOrdersAsync,
   orderDelete,
   orderDeleteProcessed,
 } from "./order.js";
 
-export {auth, authSuccess} from "./auth.js";
+export {
+  auth,
+  authSuccess,
+  logout,
+  // setAuthRedirect,
+  checkAuthStatus,
+} from "./auth.js";

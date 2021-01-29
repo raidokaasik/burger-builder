@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 import classes from "./Sidedrawer.module.css";
-import NavigationItems from "../../navigation/navigationitems/NavigationItems.js";
+import NavigationItems from "../navigationitems/NavigationItems.js";
 import Logo from "../../logo/Logo.js";
 import BackDrop from "../../UI/backdrop/BackDrop.js";
 
@@ -13,11 +13,11 @@ const sideDrawer = props => {
   return (
     <Fragment>
       <BackDrop show={props.open} clicked={props.closeSide} />
-      <div className={attachedClasses.join(" ")}>
+      <div className={attachedClasses.join(" ")} onClick={props.closeSide}>
         <div className={classes.logo}>
           <Logo height="65px" />
         </div>
-        <NavigationItems />
+        <NavigationItems isAuth={props.isAuth} />
       </div>
     </Fragment>
   );

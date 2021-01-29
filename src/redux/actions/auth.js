@@ -1,30 +1,55 @@
 import * as actionType from "./actionTypes.js";
 import axios from "axios";
 
+// Beginning of authentication. It only displays loading and loading spinner while in process.
+
 const authStart = () => {
   return {
     type: actionType.AUTH_START,
   };
 };
 
-export const authSuccess = authData => {
+// Successful authentication + takes a token and userId as parameters and stores to redux state
+
+export const authSuccess = (token, userId) => {
   return {
     type: actionType.AUTH_SUCCESS,
-    data: authData,
+    token: token,
+    userId: userId,
   };
 };
 
-const authFail = error => {
+// In case of auth failure
+
+const authFail = (error, status) => {
   return {
     type: actionType.AUTH_FAIL,
     error: error,
+    errorStatus: status,
   };
 };
-const logout = () => {
+
+// Logging out and removing tokens from redux store and localStore
+
+export const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("expirationTime");
   return {
     type: actionType.AUTH_LOGOUT,
   };
 };
+
+// Dynamic path - not working properly.
+
+// export const setAuthRedirect = path => {
+//   return {
+//     type: actionType.SET_AUTH_REDIRECT,
+//     path: path,
+//   };
+// };
+
+// Checks the Token expiration timer and logs out if time has passed
 
 const checkAuthTimer = expirationTime => {
   return dispatch => {
@@ -33,6 +58,32 @@ const checkAuthTimer = expirationTime => {
     }, expirationTime * 1000);
   };
 };
+
+// On page reload check and maintain Token and Authentication if not Expired
+
+export const checkAuthStatus = () => {
+  return dispatch => {
+    const token = localStorage.getItem("token");
+    const expirationTime = new Date(+localStorage.getItem("expirationTime"));
+    const userId = localStorage.getItem("userId");
+    if (!token) {
+      dispatch(logout());
+    } else {
+      if (expirationTime > new Date()) {
+        dispatch(authSuccess(token, userId));
+        dispatch(
+          checkAuthTimer(
+            (expirationTime.getTime() - new Date().getTime()) / 1000
+          )
+        );
+      } else {
+        dispatch(logout());
+      }
+    }
+  };
+};
+
+// Async Authentication
 
 export const auth = (email, pw, signin) => {
   return dispatch => {
@@ -51,12 +102,20 @@ export const auth = (email, pw, signin) => {
     axios
       .post(url, authData)
       .then(res => {
-        dispatch(authSuccess(res.data));
+        const expirationTime = new Date().getTime() + res.data.expiresIn * 1000;
+        localStorage.setItem("userId", res.data.localId);
+        localStorage.setItem("expirationTime", expirationTime);
+        localStorage.setItem("token", res.data.idToken);
+        dispatch(authSuccess(res.data.idToken, res.data.localId));
         dispatch(checkAuthTimer(res.data.expiresIn));
-        console.log(res.data);
       })
       .catch(error => {
-        dispatch(authFail(error.response.data.error.message));
+        dispatch(
+          authFail(
+            error.response.data.error.message,
+            error.response.data.error.code
+          )
+        );
       });
   };
 };

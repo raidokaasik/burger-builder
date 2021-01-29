@@ -24,12 +24,13 @@ const burgerControls = props => (
         disabled={props.disabled[item.type]}
       />
     ))}
+
     <button
       className={classes.OrderButton}
       disabled={!props.purchasable}
       onClick={props.clicked}
     >
-      ORDER NOW!
+      {props.isAuth ? "ORDER NOW!" : "SIGN UP"}
     </button>
   </div>
 );
@@ -37,5 +38,11 @@ const burgerControls = props => (
 burgerControls.propTypes = {
   clicked: PropTypes.any,
 };
+
+// const mapStateToProps = state => {
+//   return {
+//     isAuth: state.ath.token !== null,
+//   };
+// };
 
 export default burgerControls;

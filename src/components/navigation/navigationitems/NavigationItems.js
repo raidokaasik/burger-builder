@@ -1,9 +1,9 @@
 import React, {Fragment} from "react";
-import {NavLink, Route} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import classes from "./NavigationItems.module.css";
 import {connect} from "react-redux";
 
-const navigationItems = () => {
+const navigationItems = props => {
   return (
     <Fragment>
       <ul className={classes.navigationItems}>
@@ -12,15 +12,23 @@ const navigationItems = () => {
             Burger Builder
           </NavLink>
         </li>
+        {props.isAuth && (
+          <li className={classes.navigationItem}>
+            <NavLink activeClassName={classes.active} exact to="/orders">
+              Orders
+            </NavLink>
+          </li>
+        )}
         <li className={classes.navigationItem}>
-          <NavLink activeClassName={classes.active} exact to="/orders">
-            Orders
-          </NavLink>
-        </li>
-        <li className={classes.navigationItem}>
-          <NavLink activeClassName={classes.active} exact to="/auth">
-            Register
-          </NavLink>
+          {props.isAuth ? (
+            <NavLink activeClassName={classes.active} exact to="/logout">
+              Logout
+            </NavLink>
+          ) : (
+            <NavLink activeClassName={classes.active} exact to="/auth">
+              Authentication
+            </NavLink>
+          )}
         </li>
       </ul>
     </Fragment>

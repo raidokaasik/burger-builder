@@ -30,7 +30,7 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    case actionType.RESET_REDIRECT:
+    case actionType.RESET_PURCHASING:
       return {
         ...state,
         purchased: false,
@@ -53,13 +53,17 @@ const orderReducer = (state = initialState, action) => {
         loading: false,
         errors: action.error,
       };
+    case actionType.ORDER_DELETE_START:
+      console.log(state.orders);
+      return {
+        loading: true,
+      };
+
     case actionType.ORDER_DELETE_PROCESSED:
-      const copyOrders = [...state.orders];
-      const newOrders = copyOrders.filter(item => item.id !== action.orderId);
-      console.log(newOrders);
       return {
         ...state,
-        orders: newOrders,
+        loading: false,
+        orders: state.orders.filter(item => item.id !== action.deletedOrders),
       };
     default:
       return state;

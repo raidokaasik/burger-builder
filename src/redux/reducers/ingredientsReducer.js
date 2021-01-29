@@ -4,6 +4,7 @@ import * as actionType from "../actions/actionTypes.js";
 const initialState = {
   ingredients: null,
   error: null,
+  inProcess: false,
 };
 
 const ingredientsReducer = (state = initialState, action) => {
@@ -11,6 +12,7 @@ const ingredientsReducer = (state = initialState, action) => {
     case actionType.ADD_INGREDIENT:
       return {
         ...state,
+        inProcess: true,
         ingredients: {
           ...state.ingredients,
           [action.payload]: state.ingredients[action.payload] + 1,
@@ -19,6 +21,7 @@ const ingredientsReducer = (state = initialState, action) => {
     case actionType.REMOVE_INGREDIENT:
       return {
         ...state,
+        inProcess: true,
         ingredients: {
           ...state.ingredients,
           [action.payload]: state.ingredients[action.payload] - 1,
@@ -27,6 +30,7 @@ const ingredientsReducer = (state = initialState, action) => {
     case actionType.INIT_INGREDIENT:
       return {
         ...state,
+        inProcess: false,
         ingredients: action.payload,
         error: false,
       };

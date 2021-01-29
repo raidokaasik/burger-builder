@@ -8,16 +8,33 @@
 }
 
 .myorderLeftSide {
-  padding: 30px 60px;
-  width: 50vw;
+  width: 40vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .myorderRightSide {
-  width: 100%;
+  width: 50vw;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 780px) {
+  .myorderLeftSide {
+    width: 100%;
+  }
+  .myorderRightSide {
+    width: 100%;
+    display: flex;
+    justify-self: flex-start;
+    align-items: center;
+  }
+  .myorderContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

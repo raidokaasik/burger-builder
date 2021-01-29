@@ -7,27 +7,18 @@ import Burger from "../../components/burger/Burger.js";
 import {connect} from "react-redux";
 
 class MyOrder extends Component {
-  // componentDidMount() {
-  //   //How to parse URI search params into a state object
-  //   const query = new URLSearchParams(this.props.location.search);
-  //   const newIngredients = {};
-  //   for (let item of query.entries()) {
-  //     if (item[0] !== "price") {
-  //       this.setState({totalPrice: +item[1]});
-  //       newIngredients[item[0]] = +item[1];
-  //     }
-  //   }
-  //   this.setState({ingredients: newIngredients});
-  // }
-
   state = {
     showDataForm: false,
   };
+
+  // Mid step confirmation if the user is happy with the product they made
 
   continueOrderHandler = () => {
     this.setState({showDataForm: true});
     this.props.history.push("/myorder/contact-data");
   };
+
+  // Mid step cancellation
 
   cancelOrderHandler = () => {
     console.log();
@@ -50,13 +41,7 @@ class MyOrder extends Component {
           {this.state.showDataForm ? (
             <Route
               path={this.props.match.url + "/contact-data"}
-              render={props => (
-                <ContactData
-                  // ingredients={this.props.ingredients}
-                  // price={this.props.price}
-                  {...props}
-                />
-              )}
+              render={props => <ContactData {...props} />}
             />
           ) : (
             <MyCheckoutSummary
@@ -69,6 +54,8 @@ class MyOrder extends Component {
     );
   }
 }
+
+// Redux State
 
 const mapStateToProps = state => {
   return {

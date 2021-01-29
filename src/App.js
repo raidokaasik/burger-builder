@@ -1,33 +1,67 @@
 import React, {Component} from "react";
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
+import {Route, withRouter, Redirect} from "react-router-dom";
+import {connect} from "react-redux";
+import * as actionCreator from "./redux/actions/actionIndex.js";
 import Layout from "../src/containers/layout/Layout.js";
 import BurgerBuilder from "./containers/burgerbuilder/BurgerBuilder";
-import MyOrder from "./containers/myorder/Myorder.js";
+// import MyOrder from "./containers/myorder/Myorder.js";
 import Backdrop from "./components/UI/backdrop/BackDrop.js";
-import Orders from "./containers/orders/Orders.js";
-import Auth from "./containers/auth/Auth.js";
+// import Orders from "./containers/orders/Orders.js";
+// import Auth from "./containers/auth/Auth.js";
+import Logout from "./containers/logout/Logout.js";
+import asyncComponent from "./hoc/asyncComponent.js";
+
+const asyncOrders = asyncComponent(() =>
+  import("./containers/orders/Orders.js")
+);
+const asyncMyorder = asyncComponent(() =>
+  import("./containers/myorder/Myorder.js")
+);
+const asyncAuth = asyncComponent(() => import("./containers/auth/Auth.js"));
 
 class App extends Component {
   state = {
     showBackdrop: false,
   };
 
+  componentDidMount() {
+    this.props.authChecker();
+  }
+
   render() {
+    // unAuth users cannot visit orders or myorders page
+
     return (
       <div>
-        <BrowserRouter>
-          <Backdrop />
-          <Layout>
-            {/* <BurgerBuilder /> */}
-            <Route exact path="/auth" component={Auth} />
-            <Route exact path="/orders" component={Orders} />
-            <Route exact path="/" component={BurgerBuilder}></Route>
-            <Route path="/myorder" component={MyOrder}></Route>
-          </Layout>
-        </BrowserRouter>
+        <Backdrop />
+        <Layout>
+          {this.props.isAuth ? (
+            <Route exact path="/logout" component={Logout} />
+          ) : null}
+          <Route exact path="/auth" component={asyncAuth} />
+          {this.props.isAuth ? (
+            <Route exact path="/orders" component={asyncOrders} />
+          ) : null}
+          <Route exact path="/" component={BurgerBuilder}></Route>
+          {this.props.isAuth ? (
+            <Route path="/myorder" component={asyncMyorder}></Route>
+          ) : null}
+          <Redirect to="/" />
+        </Layout>
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    isAuth: state.ath.token !== null,
+  };
+};
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    authChecker: () => dispatch(actionCreator.checkAuthStatus()),
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Redirect} from "react-router-dom";
 import classes from "./Auth.module.css";
 import Input from "../../components/UI/input/Input.js";
 import Button from "../../components/buttons/Button.js";
@@ -6,8 +7,11 @@ import * as actionCreator from "../../redux/actions/actionIndex.js";
 import Spinner from "../../components/UI/spinner/Spinner.js";
 import ErrorMessage from "../../components/UI/errormessage/ErrorMessage.js";
 import {connect} from "react-redux";
+import {Validation} from "../../validation/validation.js";
 
 class Auth extends Component {
+  // Form inputs in a state
+
   state = {
     controls: {
       email: {
@@ -41,41 +45,10 @@ class Auth extends Component {
     },
     isLogin: true,
   };
-  isValidHandler(value, validation) {
-    let isValid = true;
 
-    if (!validation) {
-      return true;
-    }
-    if (validation.required) {
-      isValid = value.trim() !== "";
-    }
-    if (validation.minLength) {
-      isValid = value.length >= validation.minLength && isValid;
-    }
-    if (validation.maxLength) {
-      isValid = value.length <= validation.maxLength && isValid;
-    }
-    if (validation.isEmail) {
-    }
-    if (validation.isNumeric) {
-      isValid = !Number.isNaN(parseFloat(value)) && Number.isFinite(value);
-    }
-    return isValid;
-  }
+  // Handles the Login form input values and stores them to state(Control)
 
   inputHandler = (event, name) => {
-    // const updatedControls = {...this.state.controls};
-    // const updatedControlElement = {...updatedControls[name]};
-    // updatedControlElement.value = event.target.value;
-    // updatedControlElement.validation.valid = this.isValidHandler(
-    //   event.target.value,
-    //   updatedControlElement.validation
-    // );
-    // updatedControlElement.validation.touched = true;
-    // console.log(updatedControls);
-    // this.setState({controls: updatedControls});
-
     const updatedControls = {
       ...this.state.controls,
       [name]: {
@@ -84,7 +57,7 @@ class Auth extends Component {
         validation: {
           ...this.state.controls.validation,
           touched: true,
-          valid: this.isValidHandler(
+          valid: Validation(
             event.target.value,
             this.state.controls[name].validation
           ),
@@ -94,6 +67,10 @@ class Auth extends Component {
 
     this.setState({controls: updatedControls});
   };
+
+  // Passing login form inputs(email, password) from state to redux async authenticator as parameters.
+  // isLogin is used to swap URLs between register URL and login URL in redux async authenticator.
+
   submitHandler = event => {
     event.preventDefault();
     this.props.auth(
@@ -103,6 +80,8 @@ class Auth extends Component {
     );
   };
 
+  // Changes the UI button from Login to Register, because currently Registration and Login are sharing the same form.
+
   registerHandler = () => {
     this.setState(prevstate => {
       return {isLogin: !prevstate.isLogin};
@@ -110,6 +89,8 @@ class Auth extends Component {
   };
 
   render() {
+    // Pushing the state(Control) form input fields into an array to map through them
+
     const controlsArray = [];
     for (let item in this.state.controls) {
       controlsArray.push({
@@ -118,7 +99,7 @@ class Auth extends Component {
       });
     }
 
-    //FORM WITH A LOADING SPINNER
+    // Loading and then mapping the Inputs
 
     const form = this.props.loading ? (
       <Spinner />
@@ -138,16 +119,29 @@ class Auth extends Component {
     );
 
     //ERROR MESSAGE
-
+    let redirect = null;
     let errorMessage = null;
+
     if (this.props.error) {
+      redirect = null;
       const error = this.props.error.split("_").join(" ");
       errorMessage = <ErrorMessage>{error}</ErrorMessage>;
     }
 
+    // Redirect on Login either to "/" or to Checkout("/myorder") - if user has already started creating a burger before logging in.
+
+    if (this.props.isAuth && this.props.inProcess) {
+      redirect = <Redirect to="/myorder" />;
+    } else if (this.props.isAuth && !this.props.inProcess) {
+      redirect = <Redirect to="/" />;
+    }
+
     return (
+      // Login and Registration Form
+
       <div className={classes.Auth}>
         <h1>Hei there!</h1>
+        {redirect}
         {errorMessage}
         <form onSubmit={this.submitHandler}>
           {form}
@@ -164,16 +158,22 @@ class Auth extends Component {
   }
 }
 
+// Redux state and dispatch
+
 const mapStateToProps = state => {
   return {
+    inProcess: state.ingrd.inProcess,
     authData: state.ath.authData,
     loading: state.ath.loading,
     error: state.ath.error,
+    isAuth: state.ath.isAuth,
+    authRedirectPath: state.ath.setRedirect,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    // setRedirectPath: () => dispatch(actionCreator.setAuthRedirect("/")),
     auth: (email, pw, signup) =>
       dispatch(actionCreator.auth(email, pw, signup)),
   };

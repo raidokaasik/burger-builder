@@ -53,18 +53,18 @@ const orderReducer = (state = initialState, action) => {
         loading: false,
         errors: action.error,
       };
-    case actionType.ORDER_DELETE_START:
-      console.log(state.orders);
-      return {
-        loading: true,
-      };
+    // case actionType.ORDER_DELETE_START:
+    //   console.log(state.orders);
+    //   return {
+    //     loading: true,
+    //   };
 
-    case actionType.ORDER_DELETE_PROCESSED:
-      return {
-        ...state,
-        loading: false,
-        orders: state.orders.filter(item => item.id !== action.deletedOrders),
-      };
+    // case actionType.ORDER_DELETE_PROCESSED:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     orders: state.orders.filter(item => item.id !== action.deletedOrders),
+    //   };
     default:
       return state;
   }

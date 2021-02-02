@@ -21,7 +21,6 @@ class MyOrder extends Component {
   // Mid step cancellation
 
   cancelOrderHandler = () => {
-    console.log();
     this.props.history.goBack();
   };
 

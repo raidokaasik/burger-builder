@@ -5,6 +5,8 @@ import Logo from "../../logo/Logo.js";
 import BackDrop from "../../UI/backdrop/BackDrop.js";
 
 const sideDrawer = props => {
+  // A little conditional to open and close the the sidedrawer when page is resized to small
+
   let attachedClasses = [classes.sidedrawer, classes.close];
   if (props.open) {
     attachedClasses = [classes.sidedrawer, classes.open];

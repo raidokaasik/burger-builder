@@ -1,7 +1,6 @@
 import React, {Fragment} from "react";
 import {NavLink} from "react-router-dom";
 import classes from "./NavigationItems.module.css";
-import {connect} from "react-redux";
 
 const navigationItems = props => {
   return (
@@ -35,8 +34,4 @@ const navigationItems = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {};
-};
-
-export default connect(mapStateToProps)(navigationItems);
+export default navigationItems;

@@ -10,6 +10,8 @@ const controls = [
   {label: "Cheese", type: "cheese"},
 ];
 
+// Add or Remove Ingredients
+
 const burgerControls = props => (
   <div className={classes.BurgerControls}>
     <p>
@@ -38,11 +40,5 @@ const burgerControls = props => (
 burgerControls.propTypes = {
   clicked: PropTypes.any,
 };
-
-// const mapStateToProps = state => {
-//   return {
-//     isAuth: state.ath.token !== null,
-//   };
-// };
 
 export default burgerControls;

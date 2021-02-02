@@ -4,6 +4,8 @@ import BurgerIngredient from "./burgerIngredient/BurgerIngredient";
 
 const burger = props => {
   let errormessage = null;
+
+  // Calculates the count of Ingredients inside the burger.
   const transformedIngredients = Object.keys(props.ingredients)
     .map(item => {
       return [...Array(props.ingredients[item])].map((_, index) => {
@@ -13,6 +15,8 @@ const burger = props => {
     .reduce((arr, item) => {
       return arr.concat(item);
     }, []);
+
+  // If the count is 0, then the empty space will be replaced with Welcome.
 
   if (transformedIngredients.length === 0) {
     errormessage = <h2 className={classes.Errormessage}>WELCOME!</h2>;

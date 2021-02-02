@@ -13,18 +13,12 @@ class Orders extends Component {
     this.props.fetchOrders(this.props.token, this.props.userId);
   }
 
-  // deleteOrder = id => {
-  //   this.props.deletionProcessed(id);
-  //   this.props.deleteOrder(id, this.props.token);
-  // };
-
   render() {
     let myOrders = (
       <div className={classes.orders}>
         <h1>My Orders</h1>
         {this.props.orders.map((item, index) => (
           <OrderComponent
-            // onCancel={() => this.deleteOrder(item.id)}
             ingredients={item.ingredients}
             key={item.id}
             price={item.price}
@@ -68,7 +62,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     deletionProcessed: id => dispatch(actionCreator.orderDeleteProcessed(id)),
-    deleteOrder: (id, token) => dispatch(actionCreator.orderDelete(id, token)),
     fetchOrders: (token, user) =>
       dispatch(actionCreator.fetchOrdersAsync(token, user)),
   };

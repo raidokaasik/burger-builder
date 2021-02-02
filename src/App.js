@@ -11,6 +11,8 @@ import Backdrop from "./components/UI/backdrop/BackDrop.js";
 import Logout from "./containers/logout/Logout.js";
 import asyncComponent from "./hoc/asyncComponent.js";
 
+// components with lazy loading.
+
 const asyncOrders = asyncComponent(() =>
   import("./containers/orders/Orders.js")
 );
@@ -25,12 +27,12 @@ class App extends Component {
   };
 
   componentDidMount() {
+    // unAuth users cannot visit orders or myorders page
+
     this.props.authChecker();
   }
 
   render() {
-    // unAuth users cannot visit orders or myorders page
-
     return (
       <div>
         <Backdrop />

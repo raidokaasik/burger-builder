@@ -4,9 +4,7 @@ import PropTypes from "prop-types";
 import Button from "../../buttons/Button.js";
 
 class OrderSummary extends Component {
-  componentDidUpdate() {
-    console.log("[OrderSummary] will update");
-  }
+  // OrderSummary that comes with a Modal and Backdrop when ORDER is pressed.
 
   render() {
     const orderedIngredients = Object.keys(this.props.ingredients).map(

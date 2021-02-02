@@ -111,7 +111,7 @@ const orderDeleteStart = () => {
   };
 };
 
-// Order has been
+// Order has been processed
 
 export const orderDeleteProcessed = orderId => {
   return {

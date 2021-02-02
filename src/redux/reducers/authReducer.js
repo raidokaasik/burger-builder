@@ -39,8 +39,6 @@ const authReducer = (state = initialState, action) => {
         userId: null,
         isAuth: false,
       };
-    // case actionType.AUTH:
-    //   return {};
     case actionType.SET_AUTH_REDIRECT:
       return {
         ...state,

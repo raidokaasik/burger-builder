@@ -55,7 +55,6 @@
   }
 
   .navigationItem a:hover,
-  /* .navigationItem a:active, */
   .navigationItem a.active {
     background-color: #8f6d2e;
     border-bottom: 4px solid rgb(125, 194, 21);

@@ -2,6 +2,8 @@ import React from "react";
 import classes from "./OrderComponent.module.css";
 
 const orderComponent = props => {
+  // Creates a Fetched ingredients array to loop through
+
   const fetchedIngredients = [];
   for (let item in props.ingredients) {
     fetchedIngredients.push({
@@ -9,6 +11,8 @@ const orderComponent = props => {
       amount: props.ingredients[item],
     });
   }
+
+  // Ingredients output
 
   const outputIngredients = fetchedIngredients.map((item, index) => {
     return (
@@ -33,9 +37,9 @@ const orderComponent = props => {
       <p>City: {props.city}</p>
       <p>Street: {props.street}</p>
       <p>Postalcode: {props.postalcode}</p>
-      <button className={classes.cancelButton} onClick={props.onCancel}>
+      {/* <button className={classes.cancelButton} onClick={props.onCancel}>
         CANCEL ORDER
-      </button>
+      </button> */}
     </div>
   );
 };

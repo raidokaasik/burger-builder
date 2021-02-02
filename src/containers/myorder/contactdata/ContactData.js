@@ -123,7 +123,6 @@ class ContactData extends Component {
     for (let key in this.state.customer) {
       formSubmit[key] = this.state.customer[key].value;
     }
-
     const newOrder = {
       userId: this.props.userId,
       ingredients: this.props.ingredients,
